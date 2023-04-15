@@ -1,0 +1,128 @@
+class Program{
+
+    static void Main(System.String[] args)
+    {
+
+        // Prueba de metodos static en C# 
+        
+        int salir = 1; 
+        do
+        {
+            Console.WriteLine("Bienvenido a Conviertetodo, seleccione una opción: \n 1- Convertir velocidad. \n 2- Convertir tiempo.");
+            switch (Convert.ToInt16(Console.ReadLine()))
+            {
+
+                case 1:
+                    Console.WriteLine("Introduzca un valor para el cálculo de la velocidad:");
+                    var data = Convert.ToDouble(Console.ReadLine());
+                    Conversor conversor = new Conversor(data);
+
+                    break;
+
+                case 2:
+
+                    Console.WriteLine("Introduzca un valor para el cálculo del tiempo:");
+                    var data2 = Convert.ToInt32(Console.ReadLine());
+                    conversor = new Conversor(data2);
+
+                    break;
+
+                default:
+
+                    Console.WriteLine("El número introducido es erróneo, por favor introduzca un número correcto.");
+                    break;
+            }
+
+            Console.WriteLine("¿Desea realizar más operaciones? Pulse 1 para continuar, cualquier otra tecla para salir.");
+
+            if (!Console.ReadLine().Equals("1"))
+            {
+                salir = 0;
+            }
+
+
+        } while (salir == 1);
+ }
+ 
+ 
+  class Conversor
+    {
+        ConversorVelocidades conversorVel;
+        ConversorHoras conversorTiem;
+
+        private int tiempo;
+        private double velocidad;
+
+        public Conversor(int tiempo)
+        {
+            ConversorHoras.minutos = tiempo;
+
+            Console.WriteLine("Ha introducido {0} minutos . Las transformaciones son: {1} segundos, {2} horas, {3} días y {4} años", tiempo, ConversorHoras.conversorSegundos(), ConversorHoras.conversorHoras(), ConversorHoras.conversorDias(), ConversorHoras.conversorAnos());
+
+        }
+
+        public Conversor(double velocidad)
+        {
+            ConversorVelocidades.velocidadKh = velocidad;
+
+            Console.WriteLine("Ha introducido {0}km/h . Las transformaciones son: {1} metros segundo, {2} millas y {3} nudos", velocidad, ConversorVelocidades.conversionMS(), ConversorVelocidades.conversorMillas(), ConversorVelocidades.conversorNudos());
+        }
+        
+
+
+        class ConversorVelocidades
+        {
+            public static double velocidadKh;
+
+            public static double conversionMS()
+            {
+                return ConversorVelocidades.velocidadKh /3.6;
+
+            }
+
+            public static double conversorMillas()
+            {
+                return ConversorVelocidades.velocidadKh / 1.609;
+            } 
+
+            public static double conversorNudos()
+            {
+                return ConversorVelocidades.velocidadKh / 1.852;
+            }
+
+        }
+
+        class ConversorHoras
+        {
+
+            public static double minutos;
+            public static double dias; 
+
+            public static double conversorHoras()
+            {
+                return ConversorHoras.minutos / 60;
+
+            }
+
+            public static double conversorSegundos()
+            {
+                return ConversorHoras.minutos * 60;
+
+            }
+
+            public static double conversorDias()
+            {
+                ConversorHoras.dias = ConversorHoras.minutos / 1440;
+                return ConversorHoras.minutos / 1440; 
+
+            }
+            public static double conversorAnos()
+            {
+                return ConversorHoras.dias / 365;
+            }
+
+
+        }
+        
+
+    }
